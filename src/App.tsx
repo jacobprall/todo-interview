@@ -1,19 +1,29 @@
+
 import { useEffect, useState } from 'react';
 import { ApiClient, ToDo } from './ApiClient';
+import { useTodos } from './hooks/useTodos';
 import './App.css';
 
 const apiClient = new ApiClient();
 
 function App() {
-  const [todos, setTodos] = useState<ToDo[]>([]);
+  const { todos, isLoading, createTodo, updateTodo } = useTodos();
   const [label, setLabel] = useState('');
 
-  useEffect(() => {
-    apiClient
-      .getToDos()
-      .then((fetchedTodos) => setTodos(fetchedTodos))
-      .catch(console.error);
-  }, [setTodos]);
+  console.log(todos)
+
+
+  // useEffect(() => {
+    
+  // }, [createTodoIsLoading])
+
+
+  if (isLoading) return <>Loading...</>
+
+  const handleCreateTodo = (label: string) => {
+    // const todo: ToDo = { label, done: false };
+    createTodo({ label, done: false })
+  }
 
   return (
     <>
@@ -25,17 +35,17 @@ function App() {
           onChange={(e) => setLabel(e.target.value)}
           placeholder="Buy groceries"
         />
-        <button onClick={() => apiClient.addTodo(label)}>Add ToDo</button>
+        <button onClick={() => handleCreateTodo(label)}>Add ToDo</button>
       </div>
 
-      {todos.map((todo) => (
+      {todos.map((todo: ToDo) => (
         <div key={todo.id} className="todo-item">
           <label
             style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
           >
             {todo.label}
           </label>
-          <button onClick={() => apiClient.toggleDone(todo.label)}>
+          <button onClick={() => updateTodo(todo?.id || '')}>
             Mark {todo.done ? 'Undone' : 'Done'}
           </button>
         </div>
