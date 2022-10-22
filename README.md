@@ -66,8 +66,9 @@ Notes on implementation:
 
 (your responses to the questions in the instructions should go here):
 
-1.
-2.
+1.  
+   The page was not re-rendering, as there was no form submit and no refetching of data. One option would be to create a useEffect to fetch the data, but then you have to worry about multiple calls, caching and cache validation, etc. That's why I decided to implement some custom hook using React Query, which in my experience, is the best way to manage server-side state in a React application. React Query eliminates issues with updating todos, as it's highly optimized and I've used it to query 10000s of rows from Big Query and Snowflake. The real bottleneck ends up being loading the data into whatever visualization/table you have. As long as you are thoughtful about useMemo, React.memo and useCallback, and have streamlined components on the front end, it can be managed pretty well and stay performant.
+2. By implementing my own architecture and React query, I managed to get the updates working. One issue before was again, the lack of re-rendering as the client wasn't aware of any updates to the server-side state. You could call get again after awaiting the update. One way to make it more apparent is to have an Exception on the backend. I implemented one for Label but ended up abandoning my implementation of Label as it was truly unnecessary. 
 3.
 
 ## Submitting

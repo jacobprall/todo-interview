@@ -1,7 +1,8 @@
 export interface Todo {
   id?: number;
   done?: boolean;
-  label: string;  
+  label: string;
+  pos?: number;
 }
 
 export interface Label {

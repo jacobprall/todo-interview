@@ -1,26 +1,29 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToDo } from './interfaces';
 import { useTodos } from './hooks/useTodos';
+import { OrderGroup, OrderItem, defaultTheme } from 'react-draggable-order';
+import { arrayMoveImmutable } from 'array-move';
 import './App.css';
 
 function App() {
-  const { todos, isLoading, createTodo, updateTodo } = useTodos();
+  const { todos, isLoading, createTodo, updateTodo, refetch } = useTodos();
   const [label, setLabel] = useState('');
 
-  if (isLoading) return <>Loading...</>
+  const [editPos, setEditPos] = useState<boolean | null>(null);
+  const [localOrder, setLocalOrder] = useState(todos);
+
+
 
   const handleCreateTodo = (label: string) => {
-    // const todo: ToDo = { label, done: false };
     createTodo({ label, done: false })
   }
 
-  console.log(todos)
 
+   if (isLoading) return <>Loading...</>
   return (
     <>
       <h1>To Do List</h1>
-
       <div className="add-todo-container">
         <input
           value={label}
@@ -29,18 +32,27 @@ function App() {
         />
         <button onClick={() => handleCreateTodo(label)}>Add ToDo</button>
       </div>
-
-      {todos.map((todo: ToDo) => (
-        <div key={todo.id} className="todo-item">
+      {todos.map((todo: ToDo, i: number) => (
+          <div onMouseDown={() => setEditPos(true)} onMouseUp={() => setEditPos(false)} key={todo.id} className="todo-item">
+        
+      
+          <label>
+            {
+              i
+            }
+          </label>
           <label
             style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
           >
             {todo.label}
           </label>
-          <button onClick={() => updateTodo(todo?.id || '')}>
+          <button onClick={() => updateTodo({ ...todo, done: !todo.done })}>
             Mark {todo.done ? 'Undone' : 'Done'}
           </button>
+
         </div>
+
+
       ))}
     </>
   );

@@ -6,7 +6,7 @@ export interface TodoDatabase {
   readonly client: pg.Client;
   getAll(): Promise<TodoModel[]>;
   create(todo: TodoModel): Promise<TodoModel>;
-  update(id: number): Promise<TodoModel>;
+  update(id: number, pos: number, done: boolean): Promise<TodoModel>;
   delete(todo: TodoModel): Promise<{}>;
 }
 
@@ -37,11 +37,11 @@ export class TodoDatabaseClient implements TodoDatabase {
 
     }
 
-    async update(id: number): Promise<any> {
-      await this.client.query(
-        `UPDATE ${DatabaseNames.Todo} SET done = NOT done WHERE id = $1 RETURNING *`,
-        [id]
-      )
+    async update(id: number, pos: number, done: boolean): Promise<any> {
+        await this.client.query(
+          `UPDATE ${DatabaseNames.Todo} SET pos = $1, done = $1 WHERE id = $1 RETURNING *`,
+          [pos, done, id]
+        )
     }
 
     delete(todo: TodoModel): Promise<{}> {

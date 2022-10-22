@@ -18,8 +18,8 @@ export class TodoService implements ApplicationService {
     return await this.todoDatabase.getAll();
   }
 
-  public async update(id: number){
-    return await this.todoDatabase.update(id)
+  public async update(id: number, pos: number, done: boolean){
+    return await this.todoDatabase.update(id, pos, done)
   }
 
   public static getType() {
