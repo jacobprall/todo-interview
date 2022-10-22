@@ -62,11 +62,21 @@ The server that acts as an intermediary between the front end and the database.
 
 ## Responses
 
-(your responses to the questions in the instructions should go here):
 
-1.
-2.
-3.
+(your responses to the questions in the instructions should go here):
+Notes on implementation:
+I decided to focus on the backend, demonstrating how I would structure a project for expansion, maintainability and scalability.
+I hope that's okay! I ultimately didn't finish the rearrangement, as I was about 3 hours in by that time.
+Instead, I re-built the data caching and fetching mechanisms with React query and custom hooks.
+Obviously the backend is overkill, but I wanted to display my craftsmanship there for this role. I have several references for my front-end work,
+if it is needed. I've definitley done similar things in the past!
+
+1.  
+   The page was not re-rendering, as there was no form submit and no refetching of data. One option would be to create a useEffect to fetch the data, but then you have to worry about multiple calls, caching and cache validation, etc. That's why I decided to implement some custom hook using React Query, which in my experience, is the best way to manage server-side state in a React application. React Query eliminates issues with updating todos, as it's highly optimized and I've used it to query 10000s of rows from Big Query and Snowflake. The real bottleneck ends up being loading the data into whatever visualization/table you have. As long as you are thoughtful about useMemo, React.memo and useCallback, and have streamlined components on the front end, it can be managed pretty well and stay performant.
+
+2. By implementing my own architecture and React query, I managed to get the updates working. One issue before was again, the lack of re-rendering as the client wasn't aware of any updates to the server-side state. You could call get again after awaiting the update. One way to make it more apparent is to have an Exception on the backend. I implemented one for Label but ended up abandoning my implementation of Label as it was truly unnecessary. 
+
+3. My solution, had I finished it, would have worked at any number of todos - but I will say, it wouldn't be a friendly experience at 10000. I think at that point we may want to rethink how the front end actually works - this would tell me that the user is not using our app as we expected (as a todo app) but for a larger database-lite system. If this became common for our customers, we'd want to re-structure and strategize around this novel use case for our app - which would require resources and a fundamental UI redesign. It would also require a rethinking of our entire product!
 
 ## Submitting
 
