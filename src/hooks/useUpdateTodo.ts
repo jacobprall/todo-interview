@@ -1,4 +1,4 @@
-import { ToDo } from "../ApiClient";
+import { ToDo } from "../interfaces";
 import { useMutation } from '@tanstack/react-query';
 import { HEADERS, SERVER_URL } from "../constants";
 import { queryClient } from "..";

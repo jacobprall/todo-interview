@@ -1,12 +1,12 @@
-import { TodoPgDatabase } from "db/TodoPgDatabase";
+import { TodoDatabaseClient } from "db/todo";
 import { TodoModel } from "models/Todo";
 
 export interface ApplicationService {};
 
 export class TodoService implements ApplicationService {
-  private readonly todoDatabase: TodoPgDatabase;
+  private readonly todoDatabase: TodoDatabaseClient;
 
-  public constructor(todoDatabase: TodoPgDatabase) {
+  public constructor(todoDatabase: TodoDatabaseClient) {
     this.todoDatabase = todoDatabase
   }
 
@@ -15,7 +15,11 @@ export class TodoService implements ApplicationService {
   }
 
   public async getAll() {
-    return this.todoDatabase.getAll();
+    return await this.todoDatabase.getAll();
+  }
+
+  public async update(id: number){
+    return await this.todoDatabase.update(id)
   }
 
   public static getType() {

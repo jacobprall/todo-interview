@@ -1,7 +1,7 @@
 export interface Todo {
   id?: number;
   done?: boolean;
-  label: Label;  
+  label: string;  
 }
 
 export interface Label {

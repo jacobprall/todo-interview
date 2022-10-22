@@ -5,14 +5,14 @@ import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import {TodoService} from "./services/TodoService";
-import {TodoPgDatabase} from "./db/TodoPgDatabase";
 import {ApplicationService} from "./services";
-import { Client } from 'pg'
+import pg from 'pg'
+import { TodoDatabaseClient } from 'db/todo'
 
 class Service {
     private readonly _express: express.Application
     private readonly _appServices: Map<string, ApplicationService>
-    private readonly client: Client;
+    client: pg.Client;
 
     get express(): express.Application {
         return this._express;
@@ -25,7 +25,7 @@ class Service {
     constructor(connectionString: string) {
         this._express = express();
         this._appServices = new Map<string, ApplicationService>();
-        this.client = new Client({ connectionString });
+        this.client = new pg.Client({ connectionString });
         this.setUp();
     }
 
@@ -36,11 +36,11 @@ class Service {
     }
 
     protected setApplicationServices() {
-        this.appServices.set(TodoService.getType(), new TodoService(new TodoPgDatabase(this.client)))
+        this.appServices.set(TodoService.getType(), new TodoService(new TodoDatabaseClient(this.client)))
     }
 
     public setRoutes(): void {
-        this._express.use('/api/v1', apiV1)
+        this._express.use('', apiV1)
     }
 
     private setMiddlewares(): void {

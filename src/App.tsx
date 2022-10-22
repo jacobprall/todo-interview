@@ -1,22 +1,12 @@
 
-import { useEffect, useState } from 'react';
-import { ApiClient, ToDo } from './ApiClient';
+import { useState } from 'react';
+import { ToDo } from './interfaces';
 import { useTodos } from './hooks/useTodos';
 import './App.css';
-
-const apiClient = new ApiClient();
 
 function App() {
   const { todos, isLoading, createTodo, updateTodo } = useTodos();
   const [label, setLabel] = useState('');
-
-  console.log(todos)
-
-
-  // useEffect(() => {
-    
-  // }, [createTodoIsLoading])
-
 
   if (isLoading) return <>Loading...</>
 
@@ -24,6 +14,8 @@ function App() {
     // const todo: ToDo = { label, done: false };
     createTodo({ label, done: false })
   }
+
+  console.log(todos)
 
   return (
     <>

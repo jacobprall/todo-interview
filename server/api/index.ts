@@ -7,6 +7,7 @@ const todoController = new TodoController();
 // Route to get all todos
 router.get('/todo', todoController.getAll);
 router.post('/todo', todoController.create);
+router.put('/todo/:id', todoController.update);
 
 export default router;
 

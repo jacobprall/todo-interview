@@ -3,15 +3,16 @@ import { Todo } from '../../types';
 import { Request } from "express";
 
 export class TodoModel implements Todo {
-  label: Label;
+  label: string;
   done: boolean;
+  id?: number;
 
   static async of(req: Request) {
     const body = req.body;
-    return new TodoModel(Label.of(body.label));
+    return new TodoModel(body.label);
 }
 
-  constructor(label: Label) {
+  constructor(label: string) {
     this.label = label;
     this.done = false;
   }

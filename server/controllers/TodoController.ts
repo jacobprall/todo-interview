@@ -16,6 +16,12 @@ export class TodoController {
     res.status(200).send(new ResponseBuilder(todos).setMessage('Todos fetched'))
   }
 
+  public update = async (req: Request, res: Response): Promise<any> => {
+    const id: number = Number(req.params.id);
+    const result = await this.getService().update(id);
+    res.status(201).send(new ResponseBuilder(result).setMessage('Todo updated'))
+  }
+
   private getService(): TodoService {
     return service.appServices.get(TodoService.getType()) as TodoService
   }
