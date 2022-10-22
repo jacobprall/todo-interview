@@ -30,3 +30,5 @@ export class TodoService implements ApplicationService {
     return "TodoService"
   }
 }
+
+// Service logic, nice and clean middle man between controller and database. Plenty of room for expansion

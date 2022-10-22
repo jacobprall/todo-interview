@@ -26,3 +26,5 @@ export class LabelNotValidException extends Error {
     super("Todo label not valid");
   }
 }
+
+// This was abandoned but I left it in. Could be useful if more complex logic was to be added to Todo label.

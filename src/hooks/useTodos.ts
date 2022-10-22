@@ -20,3 +20,5 @@ export function useTodos() {
     deleteTodos,
   }
 }
+
+// unified interface for dealing with Todos

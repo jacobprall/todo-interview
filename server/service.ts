@@ -53,3 +53,5 @@ class Service {
 }
 
 export default new Service('postgresql://local:local@localhost:5432/interview');
+
+// Main service - applies middleware, sets up routes, sets up express and pg client connection

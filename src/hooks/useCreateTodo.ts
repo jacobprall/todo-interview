@@ -9,3 +9,5 @@ export function useCreateTodo() {
     body: JSON.stringify({ label, done, pos }),
   }).then((res) => res.json()), { onSuccess: () => queryClient.invalidateQueries(['todoData']),
 })}
+
+// create todo hook using mutations in React query

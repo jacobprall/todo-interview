@@ -45,3 +45,5 @@ export class ResponseBuilder {
     return res
   }
 }
+
+// I like using this generic ResponseBuilder from https://github.com/mkocik/node-express-ts-rest-api-boilerplate/blob/main/packages/api-service/src/response/response.builder.ts

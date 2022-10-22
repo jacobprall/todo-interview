@@ -51,3 +51,5 @@ export class TodoDatabaseClient implements TodoDatabase {
       return {};
     }
 }
+
+// Database logic, separated from service logic

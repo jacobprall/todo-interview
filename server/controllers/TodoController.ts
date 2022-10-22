@@ -32,3 +32,4 @@ export class TodoController {
     return service.appServices.get(TodoService.getType()) as TodoService
   }
 }
+// Todo controller, calls on service to run appropriate functionality on Database rather than directly interacting with DB
