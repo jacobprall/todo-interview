@@ -44,16 +44,10 @@ export class TodoDatabaseClient implements TodoDatabase {
         )
     }
 
-    delete(todo: TodoModel): Promise<{}> {
-      return Promise.resolve({});
+    async delete(): Promise<{}> {
+      await this.client.query(
+        `DELETE FROM ${DatabaseNames.Todo}`
+      )
+      return {};
     }
 }
-
-// Route to toggle the 'done' state of a todo
-// app.put('/todo/:id', async (req: Request, res: Response) => {
-//   const result = await this.client.query(
-//     'UPDATE todo SET done = NOT done WHERE id = $1 RETURNING *',
-//     [req.params.id]
-//   );
-//   res.send(result.rows[0]);
-// });

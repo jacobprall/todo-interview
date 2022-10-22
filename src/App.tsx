@@ -2,44 +2,70 @@
 import { useEffect, useState } from 'react';
 import { ToDo } from './interfaces';
 import { useTodos } from './hooks/useTodos';
-import { OrderGroup, OrderItem, defaultTheme } from 'react-draggable-order';
-import { arrayMoveImmutable } from 'array-move';
+import { List, arrayMove } from 'react-movable';
 import './App.css';
 
 function App() {
-  const { todos, isLoading, createTodo, updateTodo, refetch } = useTodos();
+  const { todos, isLoading, createTodo, updateTodo, deleteTodos, refetch } = useTodos();
   const [label, setLabel] = useState('');
-
-  const [editPos, setEditPos] = useState<boolean | null>(null);
-  const [localOrder, setLocalOrder] = useState(todos);
-
+  const [from, setFrom] = useState<number | undefined>(undefined);
+  const [to, setTo] = useState<number | undefined>(undefined);
 
 
-  const handleCreateTodo = (label: string) => {
-    createTodo({ label, done: false })
+  const handleCreateTodo = (label: string, pos: number) => {
+    createTodo({ label, done: false, pos })
   }
+
+  const handleReorder = () => {
+    if (typeof from === 'undefined' || typeof to === 'undefined') {
+      return;
+    }
+    const newOrder: ToDo[] = arrayMove(todos, from, to);
+    const updatedTodos: ToDo[] = todos.filter((todo: ToDo, i: number) => todo.id !== newOrder[i].id);
+    updatedTodos.forEach((todo) => updateTodo(todo))
+    refetch();
+  }
+
+  const handleNumClick = (i: number) => {
+    if (typeof from === 'undefined') {
+      setFrom(i);
+      return;
+    }
+    if (typeof to === 'undefined') {
+      setTo(i);
+      return;
+    }
+  }
+
+  useEffect(() => {
+    if (typeof to !== 'undefined') {
+      handleReorder();
+      setFrom(undefined)
+      setTo(undefined);
+    }
+  }, [to])
 
 
    if (isLoading) return <>Loading...</>
   return (
     <>
       <h1>To Do List</h1>
+      <button onClick={deleteTodos}>Clear</button>
       <div className="add-todo-container">
         <input
           value={label}
           onChange={(e) => setLabel(e.target.value)}
           placeholder="Buy groceries"
         />
-        <button onClick={() => handleCreateTodo(label)}>Add ToDo</button>
+        <button onClick={() => handleCreateTodo(label, todos.length)}>Add ToDo</button>
       </div>
-      {todos.map((todo: ToDo, i: number) => (
-          <div onMouseDown={() => setEditPos(true)} onMouseUp={() => setEditPos(false)} key={todo.id} className="todo-item">
-        
-      
-          <label>
+      {todos.sort((a: ToDo, b: ToDo) => a.pos - b.pos).map((todo: ToDo, i: number) => (
+          <div key={todo.id} className="todo-item">
+          <label onClick={() => handleNumClick(i)}>
             {
               i
             }
+            Click to swap
           </label>
           <label
             style={{ textDecoration: todo.done ? 'line-through' : 'none' }}

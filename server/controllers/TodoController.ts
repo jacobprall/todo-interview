@@ -23,6 +23,11 @@ export class TodoController {
     res.status(201).send(new ResponseBuilder(result).setMessage('Todo updated'))
   }
 
+  public delete = async (req: Request, res: Response) => {
+    await this.getService().delete();
+    res.status(200).send(new ResponseBuilder({}).setMessage('Successfully deleted all todos'))
+  }
+
   private getService(): TodoService {
     return service.appServices.get(TodoService.getType()) as TodoService
   }

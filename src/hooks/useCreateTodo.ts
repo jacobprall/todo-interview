@@ -3,9 +3,9 @@ import { HEADERS, SERVER_URL } from "../constants";
 import { queryClient } from "..";
 
 export function useCreateTodo() {
-  return useMutation(({ label, done }: { label: string, done: boolean, }) => fetch(SERVER_URL, {
+  return useMutation(({ label, done, pos }: { label: string, done: boolean, pos: number }) => fetch(SERVER_URL, {
     method: 'POST',
     headers: HEADERS,
-    body: JSON.stringify({ label, done }),
+    body: JSON.stringify({ label, done, pos }),
   }).then((res) => res.json()), { onSuccess: () => queryClient.invalidateQueries(['todoData']),
 })}

@@ -8,6 +8,8 @@ const todoController = new TodoController();
 router.get('/todo', todoController.getAll);
 router.post('/todo', todoController.create);
 router.put('/todo/:id', todoController.update);
+router.delete('/todo', todoController.delete);
+
 
 export default router;
 

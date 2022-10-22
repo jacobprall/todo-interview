@@ -22,6 +22,10 @@ export class TodoService implements ApplicationService {
     return await this.todoDatabase.update(id, pos, done)
   }
 
+  public async delete() {
+    return await this.todoDatabase.delete();
+  }
+
   public static getType() {
     return "TodoService"
   }

@@ -27,6 +27,7 @@
     "react-dom": "^18.2.0",
     "react-drag-reorder": "^1.2.0",
     "react-draggable-order": "^1.2.4",
+    "react-movable": "^3.0.4",
     "react-query": "^3.39.2",
     "react-scripts": "5.0.1",
     "ts-node": "^10.9.1",

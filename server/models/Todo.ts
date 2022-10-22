@@ -9,7 +9,7 @@ export class TodoModel implements Todo {
 
   static async of(req: Request) {
     const body = req.body;
-    return new TodoModel(body.label, body.pos);
+    return new TodoModel(body.label, body.pos, body.pos);
 }
 
   constructor(label: string, pos: number) {
