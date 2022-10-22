@@ -62,6 +62,8 @@ The server that acts as an intermediary between the front end and the database.
 
 ## Responses
 
+Notes on implementation:
+
 (your responses to the questions in the instructions should go here):
 
 1.
