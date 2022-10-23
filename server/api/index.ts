@@ -1,4 +1,4 @@
-import { TodoController } from "controllers/TodoController";
+import { TodoController } from "../controllers/TodoController";
 import express from "express";
 const router = express.Router()
 

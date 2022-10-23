@@ -1,8 +1,8 @@
-import { TodoModel } from "models/Todo";
-import { TodoService } from "services/TodoService";
+import { TodoModel } from "../models/Todo";
+import { TodoService } from "../services/TodoService";
 import { Request, Response } from "express";
-import { ResponseBuilder } from "services/ApiService";
-import service from "service";
+import { ResponseBuilder } from "../services/ApiService";
+import service from "../service";
 
 export class TodoController {
   public create = async (req: Request, res: Response): Promise<any> => {

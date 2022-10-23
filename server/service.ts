@@ -7,7 +7,7 @@ import morgan from 'morgan'
 import {TodoService} from "./services/TodoService";
 import {ApplicationService} from "./services";
 import pg from 'pg'
-import { TodoDatabaseClient } from 'db/todo'
+import { TodoDatabaseClient } from './db/todo'
 
 class Service {
     private readonly _express: express.Application

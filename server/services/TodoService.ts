@@ -1,5 +1,5 @@
-import { TodoDatabaseClient } from "db/todo";
-import { TodoModel } from "models/Todo";
+import { TodoDatabaseClient } from "../db/todo";
+import { TodoModel } from "../models/Todo";
 
 export interface ApplicationService {};
 
@@ -11,15 +11,18 @@ export class TodoService implements ApplicationService {
   }
 
   public async create(todo: TodoModel) {
-    return this.todoDatabase.create(todo);
+    const { rows } = await this.todoDatabase.create(todo);
+    return rows[0];
   }
 
-  public async getAll() {
-    return await this.todoDatabase.getAll();
+  public async getAll(): Promise<TodoModel[]> {
+    const result = await this.todoDatabase.getAll();
+    return result.rows;
   }
 
   public async update(id: number, pos: number, done: boolean){
-    return await this.todoDatabase.update(id, pos, done)
+    const { rows } = await this.todoDatabase.update(id, pos, done)
+    return rows[0];
   }
 
   public async delete() {
