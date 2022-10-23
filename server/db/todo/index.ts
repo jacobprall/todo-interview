@@ -22,7 +22,7 @@ export class TodoDatabaseClient implements TodoDatabase {
 
     async create(todo: TodoModel): Promise<any> {
       return await this.client.query(
-        `INSERT INTO ${DatabaseNames.Todo} (label) VALUES ($1) RETURNING *`, [todo.label]
+        `INSERT INTO ${DatabaseNames.Todo} (label, pos) VALUES ($1, $2) RETURNING *`, [todo.label, todo.pos]
         );
     }
 

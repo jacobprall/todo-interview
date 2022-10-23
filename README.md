@@ -76,7 +76,7 @@ if it is needed. I've definitley done similar things in the past!
 
 2. By implementing my own architecture and React query, I managed to get the updates working. One issue before was again, the lack of re-rendering as the client wasn't aware of any updates to the server-side state. You could call get again after awaiting the update. One way to make it more apparent is to have an Exception on the backend. I implemented one for Label but ended up abandoning my implementation of Label as it was truly unnecessary. 
 
-3. My solution, had I finished it, would have worked at any number of todos - but I will say, it wouldn't be a friendly experience at 10000. I think at that point we may want to rethink how the front end actually works - this would tell me that the user is not using our app as we expected (as a todo app) but for a larger database-lite system. If this became common for our customers, we'd want to re-structure and strategize around this novel use case for our app - which would require resources and a fundamental UI redesign. It would also require a rethinking of our entire product!
+3. My solution works at any number of todos - but I will say, it wouldn't be a friendly experience at 10,000 todos. I think at that point we may want to rethink how the front end actually works - this would tell me that the user is not using our app as we expected (as a todo app) but for a larger database-lite system. If this became common for our customers, we'd want to re-structure and strategize around this novel use case for our app - which would require resources and a fundamental UI redesign. It would also require a rethinking of our entire product!
 
 ## Submitting
 

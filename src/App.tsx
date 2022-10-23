@@ -13,6 +13,7 @@ function App() {
 
 
   const handleCreateTodo = (label: string, pos: number) => {
+    console.log(label, pos)
     createTodo({ label, done: false, pos })
   }
 

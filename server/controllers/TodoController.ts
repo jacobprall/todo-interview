@@ -13,6 +13,7 @@ export class TodoController {
 
   public getAll = async (req: Request, res: Response): Promise<any> => {
     const todos = await this.getService().getAll();
+    console.log({todos});
     res.status(200).send(new ResponseBuilder(todos).setMessage('Todos fetched'))
   }
 

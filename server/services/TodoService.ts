@@ -11,6 +11,7 @@ export class TodoService implements ApplicationService {
   }
 
   public async create(todo: TodoModel) {
+    console.log({ todo })
     const { rows } = await this.todoDatabase.create(todo);
     return rows[0];
   }
