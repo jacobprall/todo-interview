@@ -21,9 +21,13 @@ function App() {
     if (typeof from === 'undefined' || typeof to === 'undefined') {
       return;
     }
-    const newOrder: ToDo[] = arrayMove(todos, from, to);
-    const updatedTodos: ToDo[] = todos.filter((todo: ToDo, i: number) => todo.id !== newOrder[i].id);
-    updatedTodos.forEach((todo) => updateTodo(todo))
+    const newOrder: ToDo[] = arrayMove(todos, from, to).map(
+      (ele: ToDo, i: number) => {
+        ele.pos = i;
+        return ele;
+      }
+    );
+    newOrder.forEach((todo) => updateTodo(todo))
     refetch();
   }
 

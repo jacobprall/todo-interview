@@ -28,7 +28,7 @@ export class TodoDatabaseClient implements TodoDatabase {
 
     async update(id: number, pos: number, done: boolean): Promise<any> {
         return await this.client.query(
-          `UPDATE ${DatabaseNames.Todo} SET pos = $1, done = $1 WHERE id = $1 RETURNING *`,
+          `UPDATE ${DatabaseNames.Todo} SET pos = $1, done = $2 WHERE id = $3 RETURNING *`,
           [pos, done, id]
         )
     }
