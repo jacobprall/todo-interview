@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { ToDo } from './interfaces';
 import { useTodos } from './hooks/useTodos';
-import { List, arrayMove } from 'react-movable';
+import { arrayMove } from 'react-movable';
 import './App.css';
 
 function App() {
@@ -90,6 +90,3 @@ function App() {
 }
 
 export default App;
-
-// My attempt at re-ordering was not ideal for the user, where you'd click on one and then the other to basically move it there.
-// I messed around with some draggable libraries, but I had spent a lot of time in the back end so I decided to wrap up unfinished.
