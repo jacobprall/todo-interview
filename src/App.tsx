@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { ToDo } from './interfaces';
 import { useTodos } from './hooks/useTodos';
 import { arrayMove } from 'react-movable';
+import { Button, Heading, Input, Box, Tooltip, VStack } from '@chakra-ui/react';
 import './App.css';
 
 function App() {
@@ -13,7 +14,6 @@ function App() {
 
 
   const handleCreateTodo = (label: string, pos: number) => {
-    console.log(label, pos)
     createTodo({ label, done: false, pos })
   }
 
@@ -53,39 +53,46 @@ function App() {
 
    if (isLoading) return <>Loading...</>
   return (
-    <>
-      <h1>To Do List</h1>
-      <button onClick={deleteTodos}>Clear</button>
+    <Box padding="64px" border="1px solid lightgray" borderRadius="5px" display="flex" flexDirection={"column"}>
+      <Heading mb="32px" mt="0px" as="h1">To Do List</Heading>
+
       <div className="add-todo-container">
-        <input
+        <Input
           value={label}
           onChange={(e) => setLabel(e.target.value)}
           placeholder="Buy groceries"
         />
-        <button onClick={() => handleCreateTodo(label, todos.length)}>Add ToDo</button>
+
+      
+        <Button px="32px" background="#FED7D7" onClick={deleteTodos}>
+          <Tooltip label="This action permanently deletes all todos">
+          Clear Todos
+          </Tooltip>
+        </Button>
+
+      <Button px="32px" background="#C6F6D5" onClick={() => handleCreateTodo(label, todos.length)}>Add Todo</Button>
       </div>
+      <VStack w="100%">
       {todos.sort((a: ToDo, b: ToDo) => a.pos - b.pos).map((todo: ToDo, i: number) => (
-          <div key={todo.id} className="todo-item">
-          <label onClick={() => handleNumClick(i)}>
-            {
-              i
-            }
-            Click to swap
-          </label>
+          <Box w="100%" display="flex" justifyContent={"space-between"} p="32px" key={todo.id} border="0.5px solid lightgray" boxShadow={from === i ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px;' : ''}>
+          <Button p="8px" cursor="pointer" onClick={() => handleNumClick(i)}>
+            { typeof from === 'undefined' ? 'Move' : 'Swap' }
+          </Button>
           <label
             style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
           >
             {todo.label}
           </label>
-          <button onClick={() => updateTodo({ ...todo, done: !todo.done })}>
+          <Button onClick={() => updateTodo({ ...todo, done: !todo.done })}>
             Mark {todo.done ? 'Undone' : 'Done'}
-          </button>
+          </Button>
 
-        </div>
+        </Box>
 
 
       ))}
-    </>
+      </VStack>
+    </Box>
   );
 }
 
