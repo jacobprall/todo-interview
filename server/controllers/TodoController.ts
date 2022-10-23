@@ -13,15 +13,12 @@ export class TodoController {
 
   public getAll = async (req: Request, res: Response): Promise<any> => {
     const todos = await this.getService().getAll();
-    console.log({todos});
     res.status(200).send(new ResponseBuilder(todos).setMessage('Todos fetched'))
   }
 
   public update = async (req: Request, res: Response): Promise<any> => {
     const id: number = Number(req.params.id);
-    console.log(req.body);
     const { pos, done }: { pos: number, done: boolean } = req.body;
-    console.log({ pos })
     const result = await this.getService().update(id, pos, done);
     res.status(201).send(new ResponseBuilder(result).setMessage('Todo updated'))
   }

@@ -5,7 +5,7 @@ import { queryClient } from "..";
 export function useUpdateTodo() {
   return useMutation(({ id, pos, done }: { id: number, pos: number, done: boolean }) => 
   fetch(`${SERVER_URL}/${id}`, { method: 'PUT', headers: HEADERS, body: JSON.stringify({ pos, done }) })
-  .then((res) => res.json()), { onSuccess: () => queryClient.invalidateQueries(['todoData']), onMutate: (...args) => console.log(args) })
+  .then((res) => res.json()), { onSuccess: () => queryClient.invalidateQueries(['todoData']) })
 }
 
   // update Todo implementation
